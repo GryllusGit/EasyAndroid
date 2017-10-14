@@ -7,8 +7,10 @@ import android.util.Log;
 
 import com.wjj.easy.easyandroidHelper.R;
 import com.wjj.easy.easyandroidHelper.common.base.BaseFragment;
-import com.wjj.easy.easyandroidHelper.model.ListInfo;
+import com.wjj.easy.easyandroidHelper.model.ListCouseInfo;
 import com.wjj.easy.easyandroidHelper.module.main.adapter.HomeAdapter;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -45,15 +47,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         rvList.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getPresenter().getList(1);
+                Log.i("xx", "run: ");
+                getPresenter().getList(com.blankj.utilcode.util.Utils.getSpUtils().getString("token"),"cn_normal");
             }
         }, 1000);
     }
 
     @Override
-    public void showList(ListInfo list) {
+    public void showList(ListCouseInfo list) {
         Log.e("HomeFragment", "list : " + list.toString());
-        homeAdapter.setNewData(list.getData());
+        List<ListCouseInfo.ResultBean> result = list.result;
+        homeAdapter.setNewData(list.result);
         hiddenLoading();
     }
 }

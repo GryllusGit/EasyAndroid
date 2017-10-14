@@ -1,9 +1,10 @@
 package com.wjj.easy.easyandroidHelper.module.main.domain;
 
+import com.blankj.utilcode.util.Utils;
 import com.wjj.easy.easyandroid.http.Http;
 import com.wjj.easy.easyandroid.mvp.domain.usecases.AbstractUseCase;
 import com.wjj.easy.easyandroidHelper.common.net.AppHttp;
-import com.wjj.easy.easyandroidHelper.model.ListInfo;
+import com.wjj.easy.easyandroidHelper.model.ListCouseInfo;
 
 import javax.inject.Inject;
 
@@ -27,9 +28,9 @@ public class GetListTask extends AbstractUseCase{
 
     @Override
     public void run() {
-        appHttp.getList(index, new Http.HttpCallback<ListInfo>() {
+        appHttp.getList(Utils.getSpUtils().getString("token"),"CN_NORMAL", new Http.HttpCallback<ListCouseInfo>() {
             @Override
-            public void onResponse(ListInfo listInfos) {
+            public void onResponse(ListCouseInfo listInfos) {
 
                 getCallback().success(listInfos);
 

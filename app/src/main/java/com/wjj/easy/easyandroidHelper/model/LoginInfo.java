@@ -1,72 +1,84 @@
 package com.wjj.easy.easyandroidHelper.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by zhaotun on 2016/12/20.
  */
 
-public class LoginInfo implements Parcelable {
+public class LoginInfo  {
+
 
     /**
-     * mobile : 15670388343
-     * sessionId : 8996AD494B77221C98EE7C6D359224A1.o214zsug
+     * code : 1000
+     * info : 操作成功
+     * result : {"nim_info":{"nim_id":"","nim_token":"","tx_sign":""},"user_info":{"role":1,"user_id":5010,"user_name":"长生","user_token":"46bce8007b114bd9bd957a28069aa5d6"},"jpush_info":{"alias":"JG_TEST105010"}}
      */
 
-    private String mobile;
-    private String sessionId;
+    public String code;
+    public String info;
+    public ResultBean result;
 
-    public String getMobile() {
-        return mobile;
-    }
+    public static class ResultBean {
+        /**
+         * nim_info : {"nim_id":"","nim_token":"","tx_sign":""}
+         * user_info : {"role":1,"user_id":5010,"user_name":"长生","user_token":"46bce8007b114bd9bd957a28069aa5d6"}
+         * jpush_info : {"alias":"JG_TEST105010"}
+         */
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+        public NimInfoBean nim_info;
+        public UserInfoBean user_info;
+        public JpushInfoBean jpush_info;
 
-    public String getSessionId() {
-        return sessionId;
-    }
+        public static class NimInfoBean {
+            /**
+             * nim_id :
+             * nim_token :
+             * tx_sign :
+             */
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+            public String nim_id;
+            public String nim_token;
+            public String tx_sign;
+        }
+
+        public static class UserInfoBean {
+            /**
+             * role : 1
+             * user_id : 5010
+             * user_name : 长生
+             * user_token : 46bce8007b114bd9bd957a28069aa5d6
+             */
+
+            public int role;
+            public int user_id;
+            public String user_name;
+            public String user_token;
+
+            @Override
+            public String toString() {
+                return "UserInfoBean{" +
+                        "role=" + role +
+                        ", user_id=" + user_id +
+                        ", user_name='" + user_name + '\'' +
+                        ", user_token='" + user_token + '\'' +
+                        '}';
+            }
+        }
+
+        public static class JpushInfoBean {
+            /**
+             * alias : JG_TEST105010
+             */
+
+            public String alias;
+        }
     }
 
     @Override
     public String toString() {
         return "LoginInfo{" +
-                "mobile='" + mobile + '\'' +
-                ", sessionId='" + sessionId + '\'' +
+                "code='" + code + '\'' +
+                ", info='" + info + '\'' +
+                ", result=" + result +
                 '}';
     }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.mobile);
-        dest.writeString(this.sessionId);
-    }
-
-    protected LoginInfo(Parcel in) {
-        this.mobile = in.readString();
-        this.sessionId = in.readString();
-    }
-
-    public static final Creator<LoginInfo> CREATOR = new Creator<LoginInfo>() {
-        @Override
-        public LoginInfo createFromParcel(Parcel source) {
-            return new LoginInfo(source);
-        }
-
-        @Override
-        public LoginInfo[] newArray(int size) {
-            return new LoginInfo[size];
-        }
-    };
 }

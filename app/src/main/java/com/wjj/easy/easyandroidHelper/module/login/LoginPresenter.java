@@ -1,8 +1,11 @@
 package com.wjj.easy.easyandroidHelper.module.login;
 
+import android.app.Activity;
+
+import com.blankj.utilcode.util.Utils;
 import com.wjj.easy.easyandroid.mvp.domain.usecases.UseCase;
 import com.wjj.easy.easyandroidHelper.common.base.BasePresenter;
-import com.wjj.easy.easyandroidHelper.model.LoginResponse;
+import com.wjj.easy.easyandroidHelper.model.LoginInfo;
 import com.wjj.easy.easyandroidHelper.model.base.BaseStatus;
 import com.wjj.easy.easyandroidHelper.module.login.domain.GetVerifyCodeTask;
 import com.wjj.easy.easyandroidHelper.module.login.domain.LoginTask;
@@ -15,13 +18,15 @@ import javax.inject.Inject;
  */
 public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
 
+    private final Activity context;
     @Inject
     GetVerifyCodeTask mGetVerifyCodeTask;
     @Inject
     LoginTask mLoginTask;
 
     @Inject
-    public LoginPresenter() {
+    public LoginPresenter(Activity activity) {
+        this.context=activity;
     }
 
     @Override
@@ -48,10 +53,13 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         mLoginTask.setUserName(userName);
         mLoginTask.setPwd(pwd);
         mLoginTask.setVerifyCode(verifyCode);
-        mLoginTask.setCallback(new UseCase.Callback<LoginResponse>() {
+        mLoginTask.setCallback(new UseCase.Callback<LoginInfo>() {
             @Override
-            public void success(LoginResponse loginResponse) {
-                getView().toast("login success!");
+            public void success(LoginInfo loginResponse) {
+                getView().toast("login success!"+loginResponse.result.user_info.user_token);
+                getView().hiddenLoading();
+                Utils.getSpUtils().put("token",loginResponse.result.user_info.user_token);
+                ((LoginActivity)context).jumpToList();
             }
 
             @Override

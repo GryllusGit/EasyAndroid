@@ -3,8 +3,7 @@ package com.wjj.easy.easyandroidHelper.module.login.domain;
 import com.wjj.easy.easyandroid.http.Http;
 import com.wjj.easy.easyandroid.mvp.domain.usecases.AbstractUseCase;
 import com.wjj.easy.easyandroidHelper.common.net.AppHttp;
-import com.wjj.easy.easyandroidHelper.model.LoginResponse;
-import com.wjj.easy.easyandroidHelper.utils.SecretUtils;
+import com.wjj.easy.easyandroidHelper.model.LoginInfo;
 
 import javax.inject.Inject;
 
@@ -31,9 +30,9 @@ public class LoginTask extends AbstractUseCase {
 
     @Override
     public void run() {
-        appHttp.login(userName, SecretUtils.encryptByPublicKey(pwd, publicKey), verifyCode, new Http.HttpCallback<LoginResponse>() {
+        appHttp.login(userName,pwd, new Http.HttpCallback<LoginInfo>() {
             @Override
-            public void onResponse(LoginResponse baseStatus) {
+            public void onResponse(LoginInfo baseStatus) {
                 getCallback().success(baseStatus);
             }
 

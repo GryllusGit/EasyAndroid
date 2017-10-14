@@ -1,8 +1,8 @@
 package com.wjj.easy.easyandroidHelper.common.net;
 
 import com.wjj.easy.easyandroid.http.Http;
-import com.wjj.easy.easyandroidHelper.model.ListInfo;
-import com.wjj.easy.easyandroidHelper.model.LoginResponse;
+import com.wjj.easy.easyandroidHelper.model.ListCouseInfo;
+import com.wjj.easy.easyandroidHelper.model.LoginInfo;
 import com.wjj.easy.easyandroidHelper.model.base.BaseStatus;
 
 import javax.inject.Inject;
@@ -28,14 +28,14 @@ public class AppHttp {
         call.request();
     }
 
-    public void login(String username, String pwd, String verifyCode, final Http.HttpCallback<LoginResponse> callback) {
-        Call<LoginResponse> call = apiService.login(username, pwd, verifyCode);
+    public void login(String username, String pwd, final Http.HttpCallback<LoginInfo> callback) {
+        Call<LoginInfo> call = apiService.login(username, pwd);
         call.enqueue(new Http.CallbackDefault(callback));
         call.request();
     }
 
-    public void getList(int index, final Http.HttpCallback<ListInfo> callback) {
-        Call<ListInfo> call = apiService.getList(1,index,20);
+    public void getList(String token,String cn_normal, final Http.HttpCallback<ListCouseInfo> callback) {
+        Call<ListCouseInfo> call = apiService.getList(token,cn_normal);
         call.enqueue(new Http.CallbackDefault(callback));
         call.request();
     }

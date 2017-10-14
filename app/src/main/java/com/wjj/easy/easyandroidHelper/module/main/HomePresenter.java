@@ -1,9 +1,10 @@
 package com.wjj.easy.easyandroidHelper.module.main;
 
-import com.wjj.easy.easyandroid.mvp.domain.executor.Executor;
+import android.util.Log;
+
 import com.wjj.easy.easyandroid.mvp.domain.usecases.UseCase;
 import com.wjj.easy.easyandroidHelper.common.base.BasePresenter;
-import com.wjj.easy.easyandroidHelper.model.ListInfo;
+import com.wjj.easy.easyandroidHelper.model.ListCouseInfo;
 import com.wjj.easy.easyandroidHelper.module.main.domain.GetListTask;
 
 import javax.inject.Inject;
@@ -23,16 +24,18 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     }
 
     @Override
-    public void getList(int page) {
-        getListTask.setIndex(page);
-        getListTask.setCallback(new UseCase.Callback<ListInfo>() {
+    public void getList(String token,String cn) {
+        Log.i("xx", "getList: "+"token:"+token+" cn:"+cn);
+        getListTask.setCallback(new UseCase.Callback<ListCouseInfo>() {
             @Override
-            public void success(ListInfo list) {
+            public void success(ListCouseInfo list) {
+                Log.i("xx", "success: ");
                 getView().showList(list);
             }
 
             @Override
             public void fail() {
+                Log.i("xx", "fail: ");
                 getView().hiddenLoading();
             }
         });

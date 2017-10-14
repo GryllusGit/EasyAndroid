@@ -63,9 +63,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.tv_login:
-                getPresenter().login(setUserName.getText().toString(), setPwd.getText().toString(), setVerifyCode.getText().toString());
+                getPresenter().login("18610995093", "111111", setVerifyCode.getText().toString());
                 break;
         }
+    }
+    public void jumpToList(){
+        startActivity(new Intent(this, MainActivity.class));
     }
 
 }
